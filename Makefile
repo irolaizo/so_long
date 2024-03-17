@@ -10,15 +10,13 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long.a
+NAME = so_long
 
-SRC = so_long.c
+SRC = so_long.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 CC = cc 
-CFLAGS = -Wall -Wexta -Werror
-
-AR = ar 
-AFLAGS = rcs
+CFLAGS = -Wall -Wextra -Werror
+INCLUDE = -I./get_next_line
 
 OBJS = $(SRC:.c=.o)
 
@@ -26,13 +24,16 @@ RM = rm -f
 
 all: $(NAME)
 $(NAME): $(OBJS)
-	@ $(AR) $(ARFLAGS) $(NAME) $(OBJS)
+	@ $(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.c
+	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $@
 
 clean:
-	$ (RM) $(OBJS)
+	$(RM) $(OBJS)
 
 fclean: clean
-	$ (RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean $(NAME)
 
